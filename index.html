@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Luz Inteligente</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Encabezado con logo centrado -->
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+            <img src="images/logo.png" alt="Logo" width="100">
+        </a>
+    </nav>
+
+    <!-- Carousel de lámparas LED -->
+    <div id="carouselLamparas" class="carousel slide mt-4" data-bs-ride="carousel">
+        <div class="carousel-inner" id="carouselItems">
+            <!-- Los items del carousel se agregarán dinámicamente aquí -->
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselLamparas" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Anterior</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselLamparas" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Siguiente</span>
+        </button>
+    </div>
+
+    <!-- Contenido principal -->
+    <div class="container mt-4">
+        <div class="row">
+            <!-- Columna izquierda con el simulador de luz -->
+            <div class="col-md-6">
+                <h1>Simulador de Luz Inteligente</h1>
+
+                <!-- Formulario de simulación -->
+                <form id="formSimulador">
+                    <!-- Selector circular para el horario -->
+                    <div class="mb-3">
+                        <label class="form-label">Selecciona la Hora del inicio:</label>
+                        <div class="range-wrap">
+                            <input type="range" id="horaInicio" class="form-range" min="0" max="23" step="1"
+                                value="12" />
+                            <div class="value-bubble" id="valorHoraInicio">12:00</div>
+                        </div>
+                        <label class="form-label">Selecciona la Hora del final:</label>
+                        <div class="range-wrap">
+                            <input type="range" id="horaFinal" class="form-range" min="0" max="23" step="1"
+                                value="13" />
+                            <div class="value-bubble" id="valorHoraFinal">13:00</div>
+                        </div>
+
+                        <label id="luzNatural">Luz natural disponible: 100%</label>
+                    </div>
+
+                    <!-- Entrada de potencia de lámpara -->
+                    <div class="mb-3">
+                        <label for="potencia" class="form-label">Potencia de la Lámpara (Watts):</label>
+                        <input type="number" id="potencia" class="form-control"
+                            placeholder="Ingrese la potencia en Watts">
+                    </div>
+
+                    <!-- Selector de contrato/tarifa -->
+                    <div class="mb-3">
+                        <label for="tarifa" class="form-label">Selecciona la Tarifa:</label>
+                        <select id="tarifa" class="form-select">
+                        </select>
+                    </div>
+
+                    <button type="button" class="btn btn-primary" id="btnCalcular">Calcular Consumo</button>
+                </form>
+                <button type="button" class="btn btn-primary" id="btnUltimo">Último Consumo</button>
+                <h3 class="mt-4">Resultados</h3>
+                <p id="resultadoSimulacion"></p>
+            </div>
+        </div>
+
+        <!-- Tabla de iluminación con botones para buscar lámparas -->
+        <h4 class="mt-4">Tabla de Iluminación Estimada por Tipo de Habitación</h4>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Luz Natural Disponible</th>
+                    <th>Watts Recomendados (Sala de Estar)</th>
+                    <th>Watts Recomendados (Cocina)</th>
+                    <th>Watts Recomendados (Dormitorio)</th>
+                    <th>Watts Recomendados (Oficina)</th>
+                    <th>Recomendación de Lámparas</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>0% (Noche)</td>
+                    <td>60W</td>
+                    <td>80W</td>
+                    <td>40W</td>
+                    <td>90W</td>
+                    <td><button class="btn btn-primary" onclick="buscarLamparas(60)">Ver lámparas 60W</button></td>
+                </tr>
+                <tr>
+                    <td>50%</td>
+                    <td>30W</td>
+                    <td>40W</td>
+                    <td>20W</td>
+                    <td>45W</td>
+                    <td><button class="btn btn-primary" onclick="buscarLamparas(30)">Ver lámparas 30W</button></td>
+                </tr>
+                <tr>
+                    <td>75%</td>
+                    <td>15W</td>
+                    <td>20W</td>
+                    <td>10W</td>
+                    <td>25W</td>
+                    <td><button class="btn btn-primary" onclick="buscarLamparas(15)">Ver lámparas 15W</button></td>
+                </tr>
+                <tr>
+                    <td>100% (Mediodía)</td>
+                    <td>0W</td>
+                    <td>0W</td>
+                    <td>0W</td>
+                    <td>0W</td>
+                    <td><button class="btn btn-primary" onclick="buscarLamparas(0)">Ver lámparas 0W</button></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Modal de Bootstrap para mostrar las recomendaciones -->
+        <div class="modal fade" id="recomendacionModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Recomendación de Lámparas LED</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body" id="modalContenido">
+                        <!-- Aquí se mostrará la información del producto -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" onclick="mostrarMejor()">Mejor Opción</button>
+                        <button type="button" class="btn btn-success" onclick="mostrarMasBarato()">Más Barato</button>
+                        <button type="button" class="btn btn-danger" onclick="mostrarMasCaro()">Más Caro</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <!-- Pie de página -->
+    <footer class="bg-light text-center py-3 mt-4">
+        <p>Simulador de Luz Inteligente © 2024. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/clase.js"></script>
+    <script src="js/datos.js"></script>
+    <script src="js/miarchivo.js"></script>
+    <script src="js/listadoLamparas.js"></script>
+    <script src="js/tabla.js"></script>
+</body>
+
+</html>

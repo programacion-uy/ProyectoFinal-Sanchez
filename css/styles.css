@@ -1,0 +1,112 @@
+ /* Logo centrado en el encabezado */
+ .navbar-brand {
+    margin: 0 auto;
+}
+/* Ajuste del tamaño del carousel para que ocupe el 100% del viewport */
+#carouselLamparas {
+    min-height: 100vh; /* Ocupa el 100% del viewport */
+    display: flex;
+    align-items: center; /* Centrar el contenido verticalmente */
+    justify-content: center; /* Centrar el contenido horizontalmente */
+}
+
+/* Ajuste de la imagen en el carousel */
+.carousel-item img {
+    max-height: 600px; /* Tamaño máximo para la imagen */
+    object-fit: cover; /* Asegurar que la imagen cubra el área sin distorsión */
+    width: 100%; /* Hacer que la imagen ocupe el ancho completo */
+}
+
+/* Reducir el tamaño del área gris */
+.carousel-caption {
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo gris oscuro semitransparente */
+    padding: 10px 20px; /* Reducir el padding */
+    border-radius: 8px; /* Bordes redondeados */
+    bottom: 30px; /* Ajustar la posición */
+}
+
+/* Cambiar el color de los botones de navegación */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: gray; /* Cambiar a gris los íconos */
+    border-radius: 50%; /* Hacer los botones redondos */
+}
+/* Estilo para la lámpara */
+.lampara {
+    width: 150px;
+    height: 250px;
+    background: url('../images/lampara.png') no-repeat center;
+    background-size: contain;
+    margin: 20px auto;
+}
+
+/* Fondo de la lámpara que se ilumina */
+.iluminacion {
+    width: 150px;
+    height: 250px;
+    background-color: rgba(255, 255, 224, 0); /* Luz mínima */
+    transition: background-color 0.5s ease;
+    margin: 0 auto;
+}
+
+/* Estilo para el input tipo range circular */
+.range-wrap {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    margin: 0 auto;
+}
+
+.range {
+    width: 100%;
+    height: 100%;
+    -webkit-appearance: none;
+    background: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.range:focus {
+    outline: none;
+}
+
+.range::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 10px;
+    background: #ddd;
+    border-radius: 50px;
+}
+
+.range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #007bff;
+    cursor: pointer;
+    border-radius: 50%;
+    margin-top: -5px;
+}
+
+/* Muestra el valor de la hora */
+.value-bubble {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #007bff;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+/* Estilo del label de luz natural */
+#luzNatural {
+    font-weight: bold;
+    color: #555;
+}
